@@ -1,1 +1,1 @@
-# cs451_commerce_bank_project
+# Commerce Bank - Transaction Notification Service
