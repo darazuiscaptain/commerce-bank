@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace cs451_commerce_bank_project
 {
@@ -24,6 +25,11 @@ namespace cs451_commerce_bank_project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseInMemoryDatabase(nameof(AppDbContext));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +47,14 @@ namespace cs451_commerce_bank_project
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCors(builder =>
+            {
+                builder
+                    .WithOrigins("http://localhost:8080")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
 
             app.UseRouting();
 
