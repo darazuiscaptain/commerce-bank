@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace cs451_commerce_bank_project
 {
@@ -28,7 +24,7 @@ namespace cs451_commerce_bank_project
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseInMemoryDatabase(nameof(AppDbContext));
+                options.UseSqlServer("Server=tcp:cs451r.database.windows.net,1433;Initial Catalog=Commerce_Bank_Database;Persist Security Info=False;User ID=goldteam;Password=S$^E44L7n$s@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             });
         }
 

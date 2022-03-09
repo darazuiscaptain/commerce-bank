@@ -10,5 +10,9 @@ namespace cs451_commerce_bank_project
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
+
+        public DbSet<NotificationRule> NotificationRules { get; set; }
     }
 }
