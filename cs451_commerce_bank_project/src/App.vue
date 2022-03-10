@@ -75,4 +75,9 @@ merged into the main branch.
   /* font-weight: bold; */
   color: lightgray;
 }
+#transaction-page,
+#home-page {
+  width: 75%;
+  margin: 3em auto;
+}
 </style>
