@@ -3,9 +3,9 @@ import App from './App.vue';
 import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
 
-import LoginPage from './components/LoginPage.vue';
-import HomePage from './components/HomePage.vue';
-import TransactionPage from './components/TransactionPage.vue';
+import LoginPage from './pages/LoginPage.vue';
+import HomePage from './pages/HomePage.vue';
+import TransactionPage from './pages/TransactionPage.vue';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
