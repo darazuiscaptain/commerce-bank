@@ -1,41 +1,23 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand">Commerce Bank</a>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <router-link to="/" class="nav-link">Login</router-link>
-            <router-link to="/home" class="nav-link">Home</router-link>
-            <router-link to="/transactions" class="nav-link">Transactions</router-link>
-          </div>
-        </div>
-
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-
+    <NavBar/>
     <router-view />
   </div>
   <!-- #app -->
 </template>
 
 <script>
+import NavBar from "./components/NavBar.vue";
 export default {
   name: "App",
+  components: {
+    NavBar,
+  },
   watch: {
     /**
-     * Add a listener to update page title on re-route.
+     * Add a listener to update browser tab page title on re-route.
      *
-     * @see https://stackoverflow.com/questions/51639850/how-to-change-page-titles-when-using-vue-router
+     * @see https://stackoverflow.com/questions/51639850
      */
     $route: {
       immediate: true,
@@ -66,7 +48,7 @@ approach for doing things like changing colors.
 We'll want to use the Commerce Bank CSS styling file once that's been
 merged into the main branch.
 */
-#app>nav {
+#app > nav {
   background-color: #006747 !important;
 }
 #app .nav-link,
