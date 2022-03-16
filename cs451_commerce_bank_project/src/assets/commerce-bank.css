@@ -1,0 +1,30 @@
+/**
+* CSS for Commerce Bank styling.
+*
+* @see /docs/styling.md
+*/
+
+/* Fonts */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Colors */
+.cb-dark-green { 
+    color: #006747; 
+}
+.cb-green { 
+    color: #4FA800; 
+}
+.cb-blue { 
+    color: #007AA3; 
+}
+.cb-gold { 
+    color: #FFB300; 
+}
+.cb-red { 
+    color: #E30000; 
+}
