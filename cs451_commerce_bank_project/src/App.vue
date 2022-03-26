@@ -1,18 +1,13 @@
 <template>
   <div id="app">
-    <NavBar/>
     <router-view />
   </div>
   <!-- #app -->
 </template>
 
 <script>
-import NavBar from "./components/NavBar.vue";
 export default {
   name: "App",
-  components: {
-    NavBar,
-  },
   watch: {
     /**
      * Add a listener to update browser tab page title on re-route.
@@ -38,7 +33,7 @@ export default {
   color: #2c3e50;
 }
 
-/* 
+/*
 TODO: Eliminate the CSS below.
 
 This is very much a CSS hack just to get the navbar looking nice for

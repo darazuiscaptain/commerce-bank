@@ -1,17 +1,16 @@
 import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
-import BootstrapVue from 'bootstrap-vue';
 
 import LoginPage from './pages/LoginPage.vue';
-import HomePage from './pages/HomePage.vue';
+import NotificationRulesPage from './pages/NotificationRulesPage.vue';
 import TransactionPage from './pages/TransactionPage.vue';
+import UserRegistrationPage from './pages/UserRegistrationPage.vue';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(VueRouter);
-Vue.use(BootstrapVue);
 
 const routes = [
   {
@@ -21,10 +20,15 @@ const routes = [
     meta: { title: '' }
   },
   {
-    path: '/home',
-    name: 'Home Page',
-    component: HomePage,
-    meta: { title: 'Home' }
+    path: '/user-registration',
+    name: 'User Registration',
+    component: UserRegistrationPage
+  },
+  {
+    path: '/notification-rules',
+    name: 'Notification Rules',
+    component: NotificationRulesPage,
+    meta: { title: 'Notification Rules' }
   },
   {
     path: '/transactions',

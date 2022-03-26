@@ -26,7 +26,15 @@ namespace cs451_commerce_bank_project
             {
                 options.UseSqlServer("Server=tcp:cs451r.database.windows.net,1433;Initial Catalog=Commerce_Bank_Database;Persist Security Info=False;User ID=goldteam;Password=S$^E44L7n$s@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             });
-        }
+
+            services.AddCors(options =>
+            {
+              options.AddPolicy("CorsPolicy",
+                  builder => builder.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader());
+            });
+    }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,13 +52,7 @@ namespace cs451_commerce_bank_project
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseCors(builder =>
-            {
-                builder
-                    .WithOrigins("http://localhost:8080")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            });
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 

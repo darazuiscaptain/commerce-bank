@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using cs451_commerce_bank_project.Controllers.Concerns;
 using cs451_commerce_bank_project.Models;
 
 namespace cs451_commerce_bank_project.Controllers
@@ -20,11 +21,18 @@ namespace cs451_commerce_bank_project.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] User login)
+        public IActionResult Create([FromBody] User login)
         {
-            var user = db.Users.Where(a => a.EmailAddress == login.EmailAddress).FirstOrDefault();
+            if (string.IsNullOrEmpty(login.Username) || string.IsNullOrEmpty(login.Password))
+              return BadRequest();
 
-            return Redirect("http://localhost:8080/");
+            var user = db.Users.Where(a => a.Username == login.Username).FirstOrDefault();
+            var passwordHash = Hashable.HashPassword(login.Password);
+
+            if (user != null && passwordHash == user.Password)
+                return Ok(user);
+            else
+                return BadRequest();
         }
     }
 }

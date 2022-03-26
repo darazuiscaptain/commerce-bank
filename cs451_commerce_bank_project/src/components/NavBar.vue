@@ -4,26 +4,28 @@
       <a class="navbar-brand">Commerce Bank</a>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <router-link to="/" class="nav-link"> Login </router-link>
-          <router-link to="/home" class="nav-link"> Home </router-link>
+          <router-link to="/notification-rules" class="nav-link"> Rules </router-link>
           <router-link to="/transactions" class="nav-link">
             Transactions
           </router-link>
         </div>
       </div>
-
-      <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn" type="submit">Search</button>
-      </form>
+      <!-- <router-link @click="onLogout()" to="/" class="nav-link"> Logout </router-link> -->
+      <a @click="onLogout()" class="nav-link"> Logout </a>
     </div>
   </nav>
 </template>
+
 <script>
-export default {};
+/* eslint-disable */
+import store from '../store.js';
+
+export default {
+  methods: {
+    onLogout() {
+      store.userId = null;
+      this.$router.push('/');
+    }
+  }
+};
 </script>

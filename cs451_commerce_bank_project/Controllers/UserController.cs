@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using cs451_commerce_bank_project.Controllers.Concerns;
 using cs451_commerce_bank_project.Models;
 
 namespace cs451_commerce_bank_project.Controllers
@@ -12,17 +15,17 @@ namespace cs451_commerce_bank_project.Controllers
     [Route("[controller]")]
     public class UserController : Controller
     {
-        private readonly AppDbContext _dbContext;
+        private readonly AppDbContext db;
 
         public UserController(AppDbContext dbContext)
         {
-            _dbContext = dbContext;
+            db = dbContext;
         }
 
         [HttpGet]
         public async Task<IEnumerable<User>> Get()
         {
-            var users = await _dbContext.Users.ToListAsync();
+            var users = await db.Users.ToListAsync();
 
             return users;
         }
@@ -30,26 +33,29 @@ namespace cs451_commerce_bank_project.Controllers
         [HttpGet("{id}")]
         public async Task<User> Get(int id)
         {
-            var item = await _dbContext.Users.FirstOrDefaultAsync(item => item.Id == id);
+            var item = await db.Users.FirstOrDefaultAsync(item => item.Id == id);
 
             return item;
         }
 
         [HttpPost]
-        public async Task<int> Create([FromBody] User user)
+        public async Task<User> Create([FromBody] User user)
         {
-            _dbContext.Users.Add(user);
-            await _dbContext.SaveChangesAsync();
+            var passwordHash = Hashable.HashPassword(user.Password);
+            user.Password = passwordHash;
 
-            return user.Id;
+            db.Users.Add(user);
+            await db.SaveChangesAsync();
+
+            return user;
         }
 
         [HttpPut("{id}")]
         public async Task<bool> Update(int id, User user)
         {
-            var existingUser = await _dbContext.Users.FirstOrDefaultAsync(i => i.Id == id);
+            var existingUser = await db.Users.FirstOrDefaultAsync(i => i.Id == id);
             existingUser.Name = user.Name;
-            var result = await _dbContext.SaveChangesAsync();
+            var result = await db.SaveChangesAsync();
 
             return result > 0;
         }
@@ -57,9 +63,9 @@ namespace cs451_commerce_bank_project.Controllers
         [HttpDelete("{id}")]
         public async Task<bool> Delete(int id)
         {
-            var item = await _dbContext.Users.FirstOrDefaultAsync(item => item.Id == id);
-            _dbContext.Users.Remove(item);
-            var result = await _dbContext.SaveChangesAsync();
+            var item = await db.Users.FirstOrDefaultAsync(item => item.Id == id);
+            db.Users.Remove(item);
+            var result = await db.SaveChangesAsync();
 
             return result > 0;
         }

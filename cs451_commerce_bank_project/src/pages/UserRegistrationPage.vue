@@ -1,8 +1,14 @@
-﻿<template>
+<template>
   <div class="container">
-    <form class="card" @submit.prevent="onLogin">
+    <form class="card" @submit.prevent="onCreate">
       <div class="card-body">
-        <h2>Login</h2><br>
+        <h2>User Registration</h2><br>
+        <label for="name">Name:</label><br>
+        <input
+          v-model="data.name"
+          placeholder="Enter name"
+          required
+        ><br><br>
         <label for="username">Username:</label><br>
         <input
           v-model="data.username"
@@ -16,9 +22,9 @@
           placeholder="Enter password"
           required
         ><br><br>
-        <button type="submit">Login</button>
-        <router-link to="/user-registration" class="nav-link">
-          <h5>Sign Up</h5>
+        <button type="submit">Create User</button>
+        <router-link to="/" class="nav-link">
+          <h5>Cancel</h5>
         </router-link>
       </div>
     </form>
@@ -27,12 +33,11 @@
 
 <script>
 /* eslint-disable */
-import store from '../store.js';
-
 export default {
   data() {
     return {
       data: {
+        name: '',
         username: '',
         password: ''
       }
@@ -40,29 +45,28 @@ export default {
   },
 
   methods: {
-    async onLogin() {
-      const response = await fetch('https://localhost:3000/login', {
+    onCreate() {
+      const response = fetch('https://localhost:3000/user', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(this.data)
-      }).then(async (response) => {
-        // store valid user's id in data store
-        const data = await response.json();
-        store.userId = data.id;
-
+      }).then((response) => {
         if (response.status == 200) {
+          alert('User created successfully!')
           this.$router.push('/notification-rules');
         }
         else if (response.status == 400) {
-          alert('Username and/or password is incorrect!')
+          alert('User could not be created.')
+          this.$router.push('/');
         }
       }).catch((error) => {
         console.log(error);
       });
 
+      this.data.name = '';
       this.data.username = '';
       this.data.password = '';
     },
@@ -86,7 +90,7 @@ button {
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-size: 1em;
+    font-size: 12px;
     font-weight: 500;
     height: 40px;
     width: 75px;
@@ -108,7 +112,7 @@ button {
 }
 
 .card {
-  height: 21em;
+  height: 26em;
   width: 30em;
   margin: auto;
 }
