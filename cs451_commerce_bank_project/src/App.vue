@@ -2,7 +2,6 @@
   <div id="app">
     <router-view />
   </div>
-  <!-- #app -->
 </template>
 
 <script>
@@ -43,17 +42,16 @@ approach for doing things like changing colors.
 We'll want to use the Commerce Bank CSS styling file once that's been
 merged into the main branch.
 */
-#app > nav {
+#content-wrapper > nav {
   background-color: #006747 !important;
 }
-#app .nav-link,
-#app .navbar-brand,
-#app .btn {
+#content-wrapper .nav-link,
+#content-wrapper .navbar-brand,
+#content-wrapper .btn {
   /* font-weight: bold; */
   color: lightgray;
 }
-#transaction-page,
-#home-page {
+#page-content {
   width: 75%;
   margin: 3em auto;
 }

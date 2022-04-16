@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="content-wrapper">
     <NavBar />
-    <div id="transaction-page">
+    <div id="page-content">
       <table class="table">
         <thead>
           <tr>
@@ -33,7 +33,6 @@
       </table>
     </div>
   </div>
-  <!-- #transaction-page -->
 </template>
 
 <script>
@@ -43,6 +42,6 @@ export default {
   name: "TransactionPage",
   components: {
     NavBar,
-  }
+  },
 };
 </script>

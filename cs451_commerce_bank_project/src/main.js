@@ -1,16 +1,20 @@
-import Vue from 'vue';
-import App from './App.vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import App from './App.vue'
+import VueRouter from 'vue-router'
 
-import LoginPage from './pages/LoginPage.vue';
-import NotificationRulesPage from './pages/NotificationRulesPage.vue';
-import TransactionPage from './pages/TransactionPage.vue';
-import UserRegistrationPage from './pages/UserRegistrationPage.vue';
+import LoginPage from './pages/LoginPage.vue'
+import TransactionPage from './pages/TransactionPage.vue'
+import UserRegistrationPage from './pages/UserRegistrationPage.vue'
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import NotificationRulesPage from './pages/NotificationRulesPage.vue'
+import NewRulePage from './pages/NewRulePage.vue'
+import RuleViewingPage from './pages/RuleViewingPage.vue'
+import RuleEditPage from './pages/RuleEditPage.vue'
 
-Vue.use(VueRouter);
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -29,6 +33,24 @@ const routes = [
     name: 'Notification Rules',
     component: NotificationRulesPage,
     meta: { title: 'Notification Rules' }
+  },
+  {
+    path: '/notification-rules/:id',
+    name: 'View Rule',
+    component: RuleViewingPage,
+    meta: { title: 'Notification Rule' }
+  },
+  {
+    path: '/notification-rules/new',
+    name: 'New Rules',
+    component: NewRulePage,
+    meta: { title: 'New Rule' }
+  },
+  {
+    path: '/notification-rules/:id/edit',
+    name: 'Edit Rule',
+    component: RuleEditPage,
+    meta: { title: 'Edit Rule' }
   },
   {
     path: '/transactions',

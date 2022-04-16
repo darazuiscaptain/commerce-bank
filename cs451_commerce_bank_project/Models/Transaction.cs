@@ -5,8 +5,10 @@ namespace cs451_commerce_bank_project.Models
     public class Transaction
     {
         public int Id { get; set; }
-        
-        public int AccountId { get; set; }
+
+        public int UserAccountId { get; set; }
+
+        public User User { get; set; }
 
         public DateTime ProcessingDate { get; set; }
 

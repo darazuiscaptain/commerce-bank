@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace cs451_commerce_bank_project.Models
 {
     public class User
     {
         public int Id { get; set; }
+
+        public int AccountId { get; set; }
 
         public String Name { get; set; }
 
@@ -16,5 +19,5 @@ namespace cs451_commerce_bank_project.Models
         public List<Transaction> Transactions { get; set; }
 
         public List<NotificationRule> NotificationRules { get; set; }
-    }
+  }
 }

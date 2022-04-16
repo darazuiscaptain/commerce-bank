@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace cs451_commerce_bank_project.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,13 +13,15 @@ namespace cs451_commerce_bank_project.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.UniqueConstraint("AK_Users_AccountId", x => x.AccountId);
                 });
 
             migrationBuilder.CreateTable(
@@ -28,10 +30,16 @@ namespace cs451_commerce_bank_project.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeFrame = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    AmountGreaterThan = table.Column<double>(type: "float", nullable: false),
+                    AmountLessThan = table.Column<double>(type: "float", nullable: false),
+                    AmountEquals = table.Column<double>(type: "float", nullable: false),
+                    CountTriggered = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +49,7 @@ namespace cs451_commerce_bank_project.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,24 +58,23 @@ namespace cs451_commerce_bank_project.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountId = table.Column<int>(type: "int", nullable: false),
+                    UserAccountId = table.Column<int>(type: "int", nullable: false),
                     ProcessingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Balance = table.Column<float>(type: "real", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<float>(type: "real", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Transactions_Users_UserAccountId",
+                        column: x => x.UserAccountId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "AccountId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -76,9 +83,9 @@ namespace cs451_commerce_bank_project.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_UserId",
+                name: "IX_Transactions_UserAccountId",
                 table: "Transactions",
-                column: "UserId");
+                column: "UserAccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

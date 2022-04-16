@@ -9,6 +9,15 @@ namespace cs451_commerce_bank_project
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+          modelBuilder.Entity<Transaction>()
+              .HasOne(p => p.User)
+              .WithMany(b => b.Transactions)
+              .HasForeignKey(p => p.UserAccountId)
+              .HasPrincipalKey(b => b.AccountId);
+        }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Transaction> Transactions { get; set; }

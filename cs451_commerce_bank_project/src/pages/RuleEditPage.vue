@@ -2,20 +2,20 @@
   <div id="content-wrapper">
     <NavBar />
     <div id="page-content">
-      <RulesTable />
+      <RuleEditor />
     </div>
   </div>
 </template>
 
 <script>
-import NavBar from "../components/NavBar.vue";
-import RulesTable from "../components/RulesTable.vue";
+import NavBar from "../components/NavBar.vue"
+import RuleEditor from "../components/RuleEditor.vue"
 
 export default {
-  name: "NotificationRulesPage",
+  name: "NewRulePage",
   components: {
     NavBar,
-    RulesTable,
+    RuleEditor,
   },
 };
 </script>

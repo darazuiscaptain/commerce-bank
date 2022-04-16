@@ -53,7 +53,7 @@ namespace cs451_commerce_bank_project.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -69,9 +69,6 @@ namespace cs451_commerce_bank_project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
 
                     b.Property<float>("Amount")
                         .HasColumnType("real");
@@ -91,12 +88,12 @@ namespace cs451_commerce_bank_project.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserAccountId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserAccountId");
 
                     b.ToTable("Transactions");
                 });
@@ -107,6 +104,9 @@ namespace cs451_commerce_bank_project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -124,16 +124,25 @@ namespace cs451_commerce_bank_project.Migrations
 
             modelBuilder.Entity("cs451_commerce_bank_project.Models.NotificationRule", b =>
                 {
-                    b.HasOne("cs451_commerce_bank_project.Models.User", null)
+                    b.HasOne("cs451_commerce_bank_project.Models.User", "User")
                         .WithMany("NotificationRules")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("cs451_commerce_bank_project.Models.Transaction", b =>
                 {
-                    b.HasOne("cs451_commerce_bank_project.Models.User", null)
+                    b.HasOne("cs451_commerce_bank_project.Models.User", "User")
                         .WithMany("Transactions")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserAccountId")
+                        .HasPrincipalKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("cs451_commerce_bank_project.Models.User", b =>

@@ -15,6 +15,7 @@
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="Microsoft.AspNetCore.Diagnostics" />
     <None Remove="Controllers\Concerns\" />
+    <None Remove="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="vue" Version="2.6.11" />
@@ -28,6 +29,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Concerns\" />
