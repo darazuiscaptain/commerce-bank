@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using cs451_commerce_bank_project.Controllers.Concerns;
@@ -41,6 +38,12 @@ namespace cs451_commerce_bank_project.Controllers
         [HttpPost]
         public async Task<User> Create([FromBody] User user)
         {
+            // Generate user's account ID
+            Random rand = new Random();
+            int accountId = rand.Next(1, 1000000000);
+            user.AccountId = accountId;
+
+            // Hash the user's entered password
             var passwordHash = Hashable.HashPassword(user.Password);
             user.Password = passwordHash;
 

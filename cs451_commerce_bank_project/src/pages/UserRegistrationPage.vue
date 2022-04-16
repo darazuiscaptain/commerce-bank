@@ -9,6 +9,12 @@
           placeholder="Enter name"
           required
         ><br><br>
+        <label for="emailAddress">Email Address:</label><br>
+        <input
+          v-model="data.emailAddress"
+          placeholder="Enter email address"
+          required
+        ><br><br>
         <label for="username">Username:</label><br>
         <input
           v-model="data.username"
@@ -38,6 +44,7 @@ export default {
     return {
       data: {
         name: '',
+        emailAddress: '',
         username: '',
         password: ''
       }
@@ -112,7 +119,7 @@ button {
 }
 
 .card {
-  height: 26em;
+  height: 32em;
   width: 30em;
   margin: auto;
 }

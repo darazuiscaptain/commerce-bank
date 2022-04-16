@@ -4,8 +4,8 @@ import VueRouter from 'vue-router'
 
 import LoginPage from './pages/LoginPage.vue'
 import TransactionPage from './pages/TransactionPage.vue'
+import CreateTransactionPage from './pages/CreateTransactionPage.vue'
 import UserRegistrationPage from './pages/UserRegistrationPage.vue'
-
 import NotificationRulesPage from './pages/NotificationRulesPage.vue'
 import NewRulePage from './pages/NewRulePage.vue'
 import RuleViewingPage from './pages/RuleViewingPage.vue'
@@ -35,6 +35,12 @@ const routes = [
     meta: { title: 'Notification Rules' }
   },
   {
+    path: '/notification-rules/new',
+    name: 'New Rules',
+    component: NewRulePage,
+    meta: { title: 'New Rule' }
+  },
+  {
     path: '/notification-rules/:id',
     name: 'View Rule',
     component: RuleViewingPage,
@@ -57,6 +63,12 @@ const routes = [
     name: 'Transaction Page',
     component: TransactionPage,
     meta: { title: 'Transaction' }
+  },
+  {
+    path: '/transactions/new',
+    name: 'Create a Transaction',
+    component: CreateTransactionPage,
+    meta: { title: 'Create a Transaction' }
   }
 ]
 

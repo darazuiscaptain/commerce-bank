@@ -1,7 +1,7 @@
 <template>
   <div id="transaction-page">
     <button type="button" id="new-rule-btn" class="btn btn-primary">
-      <a href="/notification-rules/new"> New Rule </a>
+      <router-link to="/notification-rules/new" class="nav-link"> New Rule </router-link>
     </button>
     <table class="table">
       <thead>
@@ -14,14 +14,14 @@
       </thead>
       <tbody v-if="this.rules.length > 0">
         <tr v-for="rule in rules" v-bind:key="rule.name">
-          <td><a :href="`/notification-rules/${rule.id}`">{{ rule.name }}</a></td>
+          <td><router-link :to="`/notification-rules/${rule.id}`">{{ rule.name }}</router-link></td>
           <td>{{ rule.type }}</td>
           <td>{{ rule.countTriggered }}</td>
-          <td><a :href="`/notification-rules/${rule.id}/edit`">Edit</a></td>
+          <td><router-link :to="`/notification-rules/${rule.id}/edit`">Edit</router-link></td>
         </tr>
       </tbody>
       <tbody v-else>
-        <h2>Sorry, no rules found.</h2>
+        <h2>No Rules Found</h2>
       </tbody>
     </table>
   </div>
@@ -34,15 +34,14 @@ import store from "../store.js"
 export default {
   data() {
     return {
-      rules: [],
+      rules: [{}]
     };
   },
 
   async mounted() {
     // TODO: handle network errors (e.g. 500) .. axios?
-    const default_user = 3 // TODO: make user session more persistent
     const response = await fetch(
-      `https://localhost:3000/rules/${store.userId ?? default_user}`
+      `https://localhost:3000/rules/${store.userId}`
     )
     this.rules = (response.status == 200 ? await response.json() : null)
   },
@@ -51,6 +50,9 @@ export default {
 
 <style scoped>
 /* TODO: move this to a css file. */
+h2 {
+  padding-top: 15px;
+}
 #new-rule-btn a {
   color: #fff;
 }
@@ -70,7 +72,7 @@ export default {
   width: 100px;
   letter-spacing: normal;
   line-height: 1.5;
-  margin-top: 2em;
+  margin-top: 1em;
   margin-bottom: 1.5em;
   margin-right: 1.5em;
   outline: none;

@@ -52,12 +52,16 @@ export default {
         // store valid user's id in data store
         const data = await response.json();
         store.userId = data.id;
+        store.accountId = data.accountId;
 
         if (response.status == 200) {
           this.$router.push('/notification-rules');
         }
         else if (response.status == 400) {
-          alert('Username and/or password is incorrect!')
+          alert('Username and/or password is incorrect!');
+        }
+        else {
+          alert('Unable to login.');
         }
       }).catch((error) => {
         console.log(error);

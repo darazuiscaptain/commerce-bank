@@ -1,7 +1,7 @@
 <template>
   <div id="new-rule-form-wrapper">
     <button type="button" class="btn btn-primary btn-pretty">
-      <a href="/notification-rules"> ⬅ Back to Rules </a>
+      <router-link to="/notification-rules" class="nav-link"> ⬅ Back to Rules </router-link>
     </button>
     <form>
       <div class="form-group">
