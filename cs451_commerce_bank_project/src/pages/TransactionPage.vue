@@ -2,8 +2,15 @@
   <div id="content-wrapper">
     <NavBar />
     <div id="page-content">
+      <VueJsonToCsv :json-data="this.data.transactions" :csv-title="'transactions_export'">
+        <button type="button" id="csv-btn" class="btn btn-primary btn-pretty">
+          Export CSV
+        </button>
+      </VueJsonToCsv>
       <button type="button" id="new-rule-btn" class="btn btn-primary">
-        <router-link to="/transactions/new" class="nav-link"> Add Transaction </router-link>
+        <router-link to="/transactions/new" class="nav-link">
+          Add Transaction
+        </router-link>
       </button>
       <div id="transaction-page">
         <table class="table">
@@ -19,12 +26,12 @@
           </thead>
           <tbody v-if="this.data.transactions.length > 0">
             <tr v-for="item in this.data.transactions" v-bind:key="item">
-              <td>{{item.userAccountId}}</td>
-              <td>{{item.type}}</td>
-              <td>{{item.amount}}</td>
-              <td>{{item.location}}</td>
-              <td>{{item.balance}}</td>
-              <td>{{item.processingDate}}</td>
+              <td>{{ item.userAccountId }}</td>
+              <td>{{ item.type }}</td>
+              <td>{{ item.amount }}</td>
+              <td>{{ item.location }}</td>
+              <td>{{ item.balance }}</td>
+              <td>{{ item.processingDate }}</td>
             </tr>
           </tbody>
           <tbody v-else>
@@ -39,7 +46,8 @@
 <script>
 /* eslint-disable */
 import NavBar from "../components/NavBar.vue";
-import store from '../store.js';
+import store from "../store.js";
+import VueJsonToCsv from "vue-json-to-csv";
 
 export default {
   name: "TransactionPage",
@@ -47,32 +55,36 @@ export default {
   data() {
     return {
       data: {
-        transactions: [{}]
-      }
-    }
+        transactions: [{}],
+      },
+    };
   },
 
   async mounted() {
-    const response = await fetch(`https://localhost:3000/transaction?accountId=${store.accountId}`);
+    const response = await fetch(
+      `https://localhost:3000/transaction?accountId=${store.accountId}`
+    );
     this.data.transactions = await response.json();
   },
 
   components: {
     NavBar,
-  }
-
+    VueJsonToCsv,
+  },
 };
 </script>
 
 <style scoped>
-#new-rule-btn a {
+#new-rule-btn a,
+#csv-btn a {
   color: #fff;
 }
 h2 {
   padding-top: 15px;
 }
 
-#new-rule-btn {
+#new-rule-btn,
+#csv-btn {
   appearance: none;
   backface-visibility: hidden;
   background-color: #006747;

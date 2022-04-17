@@ -11,6 +11,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.8.3",
     "vue": "^2.6",
+    "vue-json-to-csv": "^1.1.8",
     "vue-router": "^3.5.3",
     "vuetify": "^2.6.4"
   },

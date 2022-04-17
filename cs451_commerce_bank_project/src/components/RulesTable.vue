@@ -1,7 +1,14 @@
 <template>
   <div id="transaction-page">
+    <VueJsonToCsv :json-data="this.rules" :csv-title="'rules_export'">
+      <button type="button" id="csv-btn" class="btn btn-primary btn-pretty">
+        Export CSV
+      </button>
+    </VueJsonToCsv>
     <button type="button" id="new-rule-btn" class="btn btn-primary">
-      <router-link to="/notification-rules/new" class="nav-link"> New Rule </router-link>
+      <router-link to="/notification-rules/new" class="nav-link">
+        New Rule
+      </router-link>
     </button>
     <table class="table">
       <thead>
@@ -14,10 +21,18 @@
       </thead>
       <tbody v-if="this.rules.length > 0">
         <tr v-for="rule in rules" v-bind:key="rule.name">
-          <td><router-link :to="`/notification-rules/${rule.id}`">{{ rule.name }}</router-link></td>
+          <td>
+            <router-link :to="`/notification-rules/${rule.id}`">{{
+              rule.name
+            }}</router-link>
+          </td>
           <td>{{ rule.type }}</td>
           <td>{{ rule.countTriggered }}</td>
-          <td><router-link :to="`/notification-rules/${rule.id}/edit`">Edit</router-link></td>
+          <td>
+            <router-link :to="`/notification-rules/${rule.id}/edit`"
+              >Edit</router-link
+            >
+          </td>
         </tr>
       </tbody>
       <tbody v-else>
@@ -29,21 +44,24 @@
 
 <script>
 /* eslint-disable */
-import store from "../store.js"
+import store from "../store.js";
+import VueJsonToCsv from "vue-json-to-csv";
 
 export default {
   data() {
     return {
-      rules: [{}]
+      rules: [{}],
     };
   },
-
+  components: {
+    VueJsonToCsv,
+  },
   async mounted() {
     // TODO: handle network errors (e.g. 500) .. axios?
     const response = await fetch(
       `https://localhost:3000/rules/${store.userId}`
-    )
-    this.rules = (response.status == 200 ? await response.json() : null)
+    );
+    this.rules = response.status == 200 ? await response.json() : null;
   },
 };
 </script>
@@ -53,10 +71,12 @@ export default {
 h2 {
   padding-top: 15px;
 }
-#new-rule-btn a {
+#new-rule-btn a,
+#csv-btn a {
   color: #fff;
 }
-#new-rule-btn {
+#new-rule-btn,
+#csv-btn {
   appearance: none;
   backface-visibility: hidden;
   background-color: #006747;
