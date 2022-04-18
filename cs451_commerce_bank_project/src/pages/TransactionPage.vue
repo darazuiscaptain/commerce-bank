@@ -2,16 +2,16 @@
   <div id="content-wrapper">
     <NavBar />
     <div id="page-content">
-      <VueJsonToCsv :json-data="this.data.transactions" :csv-title="'transactions_export'">
-        <button type="button" id="csv-btn" class="btn btn-primary btn-pretty">
-          Export CSV
-        </button>
-      </VueJsonToCsv>
       <button type="button" id="new-rule-btn" class="btn btn-primary">
         <router-link to="/transactions/new" class="nav-link">
           Add Transaction
         </router-link>
       </button>
+      <VueJsonToCsv :json-data="this.data.transactions" :csv-title="'transactions_export'">
+        <button type="button" id="csv-btn" class="btn btn-primary btn-pretty">
+          Export CSV
+        </button>
+      </VueJsonToCsv>
       <div id="transaction-page">
         <table class="table">
           <thead>
@@ -28,9 +28,9 @@
             <tr v-for="item in this.data.transactions" v-bind:key="item">
               <td>{{ item.userAccountId }}</td>
               <td>{{ item.type }}</td>
-              <td>{{ item.amount }}</td>
+              <td>${{ item.amount }}</td>
               <td>{{ item.location }}</td>
-              <td>{{ item.balance }}</td>
+              <td>${{ item.balance }}</td>
               <td>{{ item.processingDate }}</td>
             </tr>
           </tbody>
@@ -75,8 +75,8 @@ export default {
 </script>
 
 <style scoped>
-#new-rule-btn a,
-#csv-btn a {
+#new-rule-btn router-link,
+#csv-btn router-link {
   color: #fff;
 }
 h2 {
@@ -98,7 +98,7 @@ h2 {
   font-size: 1em;
   font-weight: 500;
   height: 40px;
-  width: 125px;
+  width: 110px;
   letter-spacing: normal;
   line-height: 1em;
   margin-top: 1em;
@@ -106,7 +106,8 @@ h2 {
   margin-right: 1.5em;
   outline: none;
   overflow: hidden;
-  text-align: justify;
+  padding: 0;
+  text-align: center;
   text-decoration: none;
   transform: translate3d(0, 0, 0);
   transition: all 0.3s;

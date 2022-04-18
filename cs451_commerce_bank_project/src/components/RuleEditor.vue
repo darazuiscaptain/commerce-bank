@@ -31,7 +31,16 @@
           </select>
         </div>
 
-        <div class="form-group">
+        <div v-if="rule.type === 'Amount'" class="form-group">
+          <label for="amountGreaterThan" class="control-label">Amount</label>
+          <input
+            v-model.number="rule.amountGreaterThan"
+            placeholder="Enter amount greater than to check for"
+            required
+          >
+        </div>
+
+        <div v-if="rule.type === 'Location'" class="form-group">
           <label for="state" class="control-label">State</label>
 
           <select
@@ -131,7 +140,7 @@ export default {
         startTime: "0001-01-01T00:00:00",
         endTime: "0001-01-01T00:00:00",
         location: null,
-        amountGreaterThan: 0,
+        amountGreaterThan: null,
         amountLessThan: 0,
         amountEquals: 0,
         countTriggered: 0,

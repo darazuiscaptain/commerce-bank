@@ -7,7 +7,8 @@
     <ul>
       <li>Name: {{ rule.name }}</li>
       <li>Type: {{ rule.type }}</li>
-      <li>Location: {{ rule.location }}</li>
+      <li v-if="rule.type == 'Location'">Location: {{ rule.location }}</li>
+      <li v-if="rule.type == 'Amount'">Amount: ${{ rule.amountGreaterThan }}</li>
     </ul>
   </div>
 </template>
@@ -22,8 +23,8 @@ export default {
         user: null,
         name: null,
         type: null,
-        startTime: "0001-01-01T00:00:00",
-        endTime: "0001-01-01T00:00:00",
+        startTime: null,
+        endTime: null,
         location: null,
         amountGreaterThan: 0,
         amountLessThan: 0,

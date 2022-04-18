@@ -5,7 +5,7 @@
     </button>
     <form>
       <div class="form-group">
-        <label for="nameInput">Rule Name: </label>
+        <label for="nameInput">Rule Name:</label>
         <input
           type="text"
           id="nameInput"
@@ -28,7 +28,17 @@
         </select>
       </div>
 
-      <div class="form-group">
+      <div v-if="type === 'Amount'" class="form-group">
+        <label for="amountGreaterThan" class="control-label">Amount</label><br>
+        <input
+          id="amountGreaterThan"
+          v-model.number="amountGreaterThan"
+          placeholder="Enter amount greater than to check for"
+          required
+        >
+      </div>
+
+      <div v-if="type === 'Location'" class="form-group">
         <label for="state" class="control-label">State</label>
 
         <select
@@ -116,22 +126,23 @@ export default {
       name: null,
       type: "Location",
       location: "MO",
+      amountGreaterThan: null
     };
   },
   methods: {
     async submitRule() {
-      if (!this.name || !this.location || !this.type) {
+      if (!this.name || !this.location || !this.type || !this.amountGreaterThan) {
         return;
       }
 
       const url = `https://localhost:3000/rules/`;
-      const default_user = 3; // TODO: make user session more persistent
 
       const data = {
-        UserId: store.userId ?? default_user,
+        UserId: store.userId,
         name: this.name,
         location: this.location,
         type: this.type,
+        amountGreaterThan: this.amountGreaterThan
       };
 
       await fetch(url, {
@@ -186,5 +197,8 @@ export default {
   touch-action: manipulation;
   vertical-align: top;
   white-space: nowrap;
+}
+input {
+  width: 20em;
 }
 </style>

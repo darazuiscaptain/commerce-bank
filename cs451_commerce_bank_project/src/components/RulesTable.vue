@@ -1,15 +1,15 @@
 <template>
   <div id="transaction-page">
-    <VueJsonToCsv :json-data="this.rules" :csv-title="'rules_export'">
-      <button type="button" id="csv-btn" class="btn btn-primary btn-pretty">
-        Export CSV
-      </button>
-    </VueJsonToCsv>
     <button type="button" id="new-rule-btn" class="btn btn-primary">
       <router-link to="/notification-rules/new" class="nav-link">
         New Rule
       </router-link>
     </button>
+    <VueJsonToCsv :json-data="this.rules" :csv-title="'rules_export'">
+      <button type="button" id="csv-btn" class="btn btn-primary btn-pretty">
+        Export CSV
+      </button>
+    </VueJsonToCsv>
     <table class="table">
       <thead>
         <tr>
@@ -71,8 +71,8 @@ export default {
 h2 {
   padding-top: 15px;
 }
-#new-rule-btn a,
-#csv-btn a {
+#new-rule-btn router-link,
+#csv-btn router-link {
   color: #fff;
 }
 #new-rule-btn,

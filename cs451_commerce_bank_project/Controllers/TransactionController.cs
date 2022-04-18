@@ -45,6 +45,8 @@ namespace cs451_commerce_bank_project.Controllers
               isTriggered = true;
             break;
           case "Amount":
+            if (transaction.Amount >= rule.AmountGreaterThan)
+              isTriggered = true;
             break;
           case "Time":
             break;

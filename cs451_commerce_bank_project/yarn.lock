@@ -5777,6 +5777,11 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
+vue-json-to-csv@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/vue-json-to-csv/-/vue-json-to-csv-1.1.8.tgz#10b5652ca1bcc11e5cfd3637b303b7a1e06a12a0"
+  integrity sha512-xdV2cUyLQYPnG6ChjLJn3+PYnP8zxZG5u6QtFjAMzcsUtGvLFrTvMN4XnD/he4M67Y14nXE0i/20xeyaVfhylQ==
+
 vue-loader@^17.0.0:
   version "17.0.0"
   resolved "https://registry.npmjs.org/vue-loader/-/vue-loader-17.0.0.tgz"
