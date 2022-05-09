@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import vuetify from '@/plugins/vuetify' 
 
 import LoginPage from './pages/LoginPage.vue'
 import TransactionPage from './pages/TransactionPage.vue'
@@ -10,6 +11,7 @@ import NotificationRulesPage from './pages/NotificationRulesPage.vue'
 import NewRulePage from './pages/NewRulePage.vue'
 import RuleViewingPage from './pages/RuleViewingPage.vue'
 import RuleEditPage from './pages/RuleEditPage.vue'
+import AccountPage from './pages/AccountPage.vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -29,22 +31,28 @@ const routes = [
     component: UserRegistrationPage
   },
   {
+    path: '/account',
+    name: 'Account Page',
+    component: AccountPage,
+    meta: { title: 'Account Page' }
+  },
+  {
     path: '/notification-rules',
     name: 'Notification Rules',
     component: NotificationRulesPage,
     meta: { title: 'Notification Rules' }
   },
   {
-    path: '/notification-rules/:id',
-    name: 'View Rule',
-    component: RuleViewingPage,
-    meta: { title: 'Notification Rule' }
-  },
-  {
     path: '/notification-rules/new',
     name: 'New Rules',
     component: NewRulePage,
     meta: { title: 'New Rule' }
+  },
+  {
+    path: '/notification-rules/:id',
+    name: 'View Rule',
+    component: RuleViewingPage,
+    meta: { title: 'Notification Rule' }
   },
   {
     path: '/notification-rules/:id/edit',
@@ -74,5 +82,6 @@ const router = new VueRouter({
 
 new Vue({
   router,
+  vuetify,
   render: h =>h(App)
 }).$mount('#app');

@@ -1,4 +1,5 @@
 <template>
+<v-main>
   <div id="content-wrapper">
     <NavBar />
     <div id="page-content">
@@ -44,6 +45,7 @@
       </div>
     </div>
   </div>
+</v-main>
 </template>
 
 <script>

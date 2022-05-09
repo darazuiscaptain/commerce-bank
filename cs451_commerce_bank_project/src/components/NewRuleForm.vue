@@ -1,8 +1,10 @@
 <template>
   <div id="new-rule-form-wrapper">
-    <button type="button" class="btn btn-primary btn-pretty">
-      <router-link to="/notification-rules" class="nav-link"> ⬅ Back to Rules </router-link>
-    </button>
+    <router-link to="/notification-rules" class="nav-link">
+      <button type="button" class="btn btn-primary btn-pretty">
+        ⬅ Back to Rules
+      </button>
+    </router-link>
     <form>
       <div class="form-group">
         <label for="nameInput">Rule Name:</label>
@@ -29,13 +31,14 @@
       </div>
 
       <div v-if="type === 'Amount'" class="form-group">
-        <label for="amountGreaterThan" class="control-label">Amount</label><br>
+        <label for="amountGreaterThan" class="control-label">Amount</label
+        ><br />
         <input
           id="amountGreaterThan"
           v-model.number="amountGreaterThan"
           placeholder="Enter amount greater than to check for"
           required
-        >
+        />
       </div>
 
       <div v-if="type === 'Location'" class="form-group">
@@ -117,7 +120,7 @@
 </template>
 
 <script>
-import store from "../store.js"
+import store from "../store.js";
 
 export default {
   data() {
@@ -126,13 +129,18 @@ export default {
       name: null,
       type: "Location",
       location: "MO",
-      amountGreaterThan: null
+      amountGreaterThan: -1,
     };
   },
   methods: {
     async submitRule() {
-      if (!this.name || !this.location || !this.type || !this.amountGreaterThan) {
-        return;
+      if (
+        !this.name ||
+        !this.location ||
+        !this.type ||
+        !this.amountGreaterThan
+      ) {
+        return
       }
 
       const url = `https://localhost:3000/rules/`;
@@ -142,7 +150,7 @@ export default {
         name: this.name,
         location: this.location,
         type: this.type,
-        amountGreaterThan: this.amountGreaterThan
+        amountGreaterThan: this.amountGreaterThan,
       };
 
       await fetch(url, {
@@ -154,11 +162,15 @@ export default {
         body: JSON.stringify(data),
       })
         .then((response) => {
-          alert(response.ok ? "Rule created successfully!" : "Rule could not be created.")
-          this.$router.push("/notification-rules")
+          alert(
+            response.ok
+              ? "Rule created successfully!"
+              : "Rule could not be created."
+          );
+          this.$router.push("/notification-rules");
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
         });
     },
   },

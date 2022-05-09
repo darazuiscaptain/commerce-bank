@@ -1,50 +1,64 @@
 <template>
-  <div id="content-wrapper">
-    <NavBar />
-    <div id="page-content">
-      <button type="button" id="new-rule-btn" class="btn btn-primary">
-        <router-link to="/transactions/new" class="nav-link">
-          Add Transaction
-        </router-link>
-      </button>
-      <VueJsonToCsv :json-data="this.data.transactions" :csv-title="'transactions_export'">
-        <button type="button" id="csv-btn" class="btn btn-primary btn-pretty">
-          Export CSV
+  <v-main>
+    <div id="content-wrapper">
+      <AppBar />
+      <NavBar />
+      <div id="page-content">
+        <button type="button" id="new-rule-btn" class="btn primary">
+          <router-link to="/transactions/new">
+            <v-icon dark> mdi-plus-circle </v-icon>
+            Add Transaction
+          </router-link>
         </button>
-      </VueJsonToCsv>
-      <div id="transaction-page">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Account ID</th>
-              <th scope="col">Type</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Location</th>
-              <th scope="col">Balance</th>
-              <th scope="col">Processing Date</th>
-            </tr>
-          </thead>
-          <tbody v-if="this.data.transactions.length > 0">
-            <tr v-for="item in this.data.transactions" v-bind:key="item">
-              <td>{{ item.userAccountId }}</td>
-              <td>{{ item.type }}</td>
-              <td>${{ item.amount }}</td>
-              <td>{{ item.location }}</td>
-              <td>${{ item.balance }}</td>
-              <td>{{ item.processingDate }}</td>
-            </tr>
-          </tbody>
-          <tbody v-else>
-            <h2>No Transactions Found</h2>
-          </tbody>
-        </table>
+        <VueJsonToCsv
+          :json-data="this.data.transactions"
+          :csv-title="'transactions_export'"
+        >
+          <button type="button" id="csv-btn" class="btn primary btn-pretty">
+            <v-icon dark> mdi-file-export </v-icon>
+            <span style="color: white">Export CSV</span>
+          </button>
+        </VueJsonToCsv>
+
+        <br /><br /><!-- TODO: remove this hack -->
+        <div id="transaction-page">
+          <v-card class="mb-1">
+            <v-card-title>
+              <v-icon>mdi-receipt</v-icon>&nbsp;
+              Transactions
+              <v-spacer></v-spacer>
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-card-title>
+            <v-data-table
+              :headers="headers"
+              :items="data.transactions"
+              :items-per-page="10"
+              :search="search"
+              :loading="!data.transactions.length"
+              loading-text="Loading... Please wait"
+            >
+              <template #[`item.type`]="{ item }">
+                <v-chip :color="getColor(item.type)" dark>
+                  {{ item.type }}
+                </v-chip>
+              </template>
+            </v-data-table>
+          </v-card>
+        </div>
       </div>
     </div>
-  </div>
+  </v-main>
 </template>
 
 <script>
 /* eslint-disable */
+import AppBar from "../components/AppBar.vue";
 import NavBar from "../components/NavBar.vue";
 import store from "../store.js";
 import VueJsonToCsv from "vue-json-to-csv";
@@ -54,6 +68,20 @@ export default {
 
   data() {
     return {
+      search: "",
+      headers: [
+        {
+          text: "Account ID",
+          align: "start",
+          sortable: false,
+          value: "userAccountId",
+        },
+        { text: "Type", value: "type" },
+        { text: "Amount", value: "amount", sortable: false },
+        { text: "Location", value: "location" },
+        { text: "Balance", value: "balance", sortable: false },
+        { text: "Processing Date", value: "processingDate", sortable: false },
+      ],
       data: {
         transactions: [{}],
       },
@@ -65,19 +93,49 @@ export default {
       `https://localhost:3000/transaction?accountId=${store.accountId}`
     );
     this.data.transactions = await response.json();
+
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+    await this.data.transactions.forEach((e) => {
+      e.amount = formatter.format(e.amount);
+      e.balance = formatter.format(e.balance);
+      e.processingDate = new Date(e.processingDate).toLocaleDateString(
+        "en-us",
+        { weekday: "long", year: "numeric", month: "short", day: "numeric" }
+      );
+    });
   },
 
   components: {
     NavBar,
+    AppBar,
     VueJsonToCsv,
+  },
+
+  methods: {
+    getColor(type) {
+      switch (type) {
+        case "DR":
+          return "green";
+
+        case "CR":
+          return "orange";
+
+        default:
+          return "blue";
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-#new-rule-btn router-link,
-#csv-btn router-link {
+#new-rule-btn a,
+#csv-btn a {
   color: #fff;
+  text-decoration: none;
 }
 h2 {
   padding-top: 15px;
@@ -85,36 +143,11 @@ h2 {
 
 #new-rule-btn,
 #csv-btn {
-  appearance: none;
-  backface-visibility: hidden;
-  background-color: #006747;
   border-radius: 10px;
   border-style: none;
-  box-shadow: none;
-  box-sizing: border-box;
   cursor: pointer;
-  display: inline-block;
-  float: right;
   font-size: 1em;
   font-weight: 500;
-  height: 40px;
-  width: 110px;
-  letter-spacing: normal;
-  line-height: 1em;
-  margin-top: 1em;
-  margin-bottom: 1.5em;
-  margin-right: 1.5em;
-  outline: none;
-  overflow: hidden;
-  padding: 0;
-  text-align: center;
-  text-decoration: none;
-  transform: translate3d(0, 0, 0);
-  transition: all 0.3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
+  margin-right: 1em;
 }
 </style>

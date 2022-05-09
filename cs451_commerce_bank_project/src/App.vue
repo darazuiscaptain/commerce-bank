@@ -1,7 +1,9 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <v-app>
+    <v-fade-transition mode="out-in">
+      <router-view />
+    </v-fade-transition>
+  </v-app>
 </template>
 
 <script>
@@ -29,30 +31,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-/*
-TODO: Eliminate the CSS below.
-
-This is very much a CSS hack just to get the navbar looking nice for
-demonstration purposes. We'll want to look into the proper Bootstrap
-approach for doing things like changing colors.
-
-We'll want to use the Commerce Bank CSS styling file once that's been
-merged into the main branch.
-*/
-#content-wrapper > nav {
-  background-color: #006747 !important;
-}
-#content-wrapper .nav-link,
-#content-wrapper .navbar-brand,
-#content-wrapper .btn {
-  /* font-weight: bold; */
-  color: lightgray;
 }
 #page-content {
-  width: 75%;
-  margin: 3em auto;
+  margin: 1em;
 }
 </style>
